@@ -1,17 +1,18 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ObjWriter {
 
     public static void write(String filePath, List<float[]> vertices,
-                             List<float[]> textureVertices, List<float[]> normalVertices,
+                             List<float[]> textures, List<float[]> normals,
                              List<int[]> faces) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writeVertices(vertices, writer);
-            writeTextureVertices(textureVertices, writer);
-            writeNormalVertices(normalVertices, writer);
+            writeTextureVertices(textures, writer);
+            writeNormalVertices(normals, writer);
             writeFaces(faces, writer);
         }
     }
@@ -22,18 +23,18 @@ public class ObjWriter {
         }
     }
     public static void writeWithoutNormal(String filePath, List<float[]> vertices,
-                                          List<float[]> textureVertices, List<int[]> faces) throws IOException {
+                                          List<float[]> textures, List<int[]> faces) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writeVertices(vertices, writer);
-            writeTextureVertices(textureVertices, writer);
+            writeTextureVertices(textures, writer);
             writeFaces(faces, writer);
         }
     }
     public static void writeWithoutTexture(String filePath, List<float[]> vertices,
-                                           List<float[]> normalVertices, List<int[]> faces) throws IOException {
+                                           List<float[]> normals, List<int[]> faces) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writeVertices(vertices, writer);
-            writeNormalVertices(normalVertices, writer);
+            writeNormalVertices(normals, writer);
             writeFaces(faces, writer);
         }
     }
@@ -57,7 +58,7 @@ public class ObjWriter {
         for (int[] face : faces) {
             writer.write("f");
             for (int index : face)
-                writer.write(" " + (index + 1));
+                writer.write(" " + index);
             writer.write("\n");
         }
     }
