@@ -24,6 +24,10 @@ public class ObjWriter {
     }
 
     private static void checkAndCreateFile(String filePath) throws IOException {
+        String extension = filePath.substring(filePath.length() - 4);
+        if (!extension.equals(".obj"))
+            filePath += ".obj";
+
         File file = new File(filePath);
         if (!file.exists())
             file.createNewFile();

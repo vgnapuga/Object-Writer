@@ -67,27 +67,4 @@ public class ObjReader {
         return face;
     }
 
-    public static void main(String[] args) throws IOException {
-        String path = "/home/onenull/.local/projects/IDEAProjects/CG/CG-task03/test.obj";
-        ObjData objData = read(path);
-
-        System.out.println("Vertices:");
-        for (float[] vertex : objData.vertices) {
-            System.out.println(String.format("v %f %f %f", vertex[0], vertex[1], vertex[2]));
-        }
-
-        System.out.println("Normals:");
-        for (float[] normal : objData.normals) {
-            System.out.println(String.format("vn %f %f %f", normal[0], normal[1], normal[2]));
-        }
-
-        System.out.println("Faces:");
-        for (int[] face : objData.faces) {
-            System.out.print("f");
-            for (int index : face) {
-                System.out.print(" " + (index + 1));
-            }
-            System.out.println();
-        }
-    }
 }
