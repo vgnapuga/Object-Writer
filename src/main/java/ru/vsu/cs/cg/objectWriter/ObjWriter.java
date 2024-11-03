@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.vsu.cs.cg.ObjData;
@@ -11,9 +12,9 @@ import ru.vsu.cs.cg.ObjData;
 public class ObjWriter {
 
     public static void write(String filePath, ObjData object) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            checkAndCreateFile(filePath);
+        String newFilePath = checkAndCreateFile(filePath);
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(newFilePath))) {
             writeVertices(object.vertices, writer);
             if (object.textures != null)
                 writeTextures(object.textures, writer);
@@ -23,14 +24,25 @@ public class ObjWriter {
         }
     }
 
-    private static void checkAndCreateFile(String filePath) throws IOException {
-        String extension = filePath.substring(filePath.length() - 4);
-        if (!extension.equals(".obj"))
-            filePath += ".obj";
+    private static String checkAndCreateFile(String filePath) throws IOException {
+        String newFilePath = filePath;
 
-        File file = new File(filePath);
-        if (!file.exists())
+        if (!isObj(filePath)) {}
+            newFilePath += ".obj";
+
+        File file = new File(newFilePath);
+        if (file.exists()) {
+            file.delete();
             file.createNewFile();
+        } else {
+            file.createNewFile();
+        }
+
+        return newFilePath;
+    }
+
+    private static boolean isObj(String filePath) {
+        return filePath.endsWith(".obj");
     }
 
     private static void writeVertices(List<float[]> vertices, BufferedWriter writer) throws IOException {
