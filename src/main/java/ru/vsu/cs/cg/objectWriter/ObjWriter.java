@@ -1,42 +1,32 @@
+package ru.vsu.cs.cg.objectWriter;
+
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
+import ru.vsu.cs.cg.ObjData;
 
 public class ObjWriter {
 
-    public static void write(String filePath, List<float[]> vertices,
-                             List<float[]> textures, List<float[]> normals,
-                             List<int[]> faces) throws IOException {
+    public static void write(String filePath, ObjData object) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writeVertices(vertices, writer);
-            writeTextureVertices(textures, writer);
-            writeNormalVertices(normals, writer);
-            writeFaces(faces, writer);
+            checkAndCreateFile(filePath);
+
+            writeVertices(object.vertices, writer);
+            if (object.textures != null)
+                writeTextures(object.textures, writer);
+            if (object.normals != null)
+                writeNormals(object.normals, writer);
+            writeFaces(object.faces, writer);
         }
     }
-    public static void write(String filePath, List<float[]> vertices, List<int[]> faces) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writeVertices(vertices, writer);
-            writeFaces(faces, writer);
-        }
-    }
-    public static void writeWithoutNormal(String filePath, List<float[]> vertices,
-                                          List<float[]> textures, List<int[]> faces) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writeVertices(vertices, writer);
-            writeTextureVertices(textures, writer);
-            writeFaces(faces, writer);
-        }
-    }
-    public static void writeWithoutTexture(String filePath, List<float[]> vertices,
-                                           List<float[]> normals, List<int[]> faces) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writeVertices(vertices, writer);
-            writeNormalVertices(normals, writer);
-            writeFaces(faces, writer);
-        }
+
+    private static void checkAndCreateFile(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists())
+            file.createNewFile();
     }
 
     private static void writeVertices(List<float[]> vertices, BufferedWriter writer) throws IOException {
@@ -44,12 +34,12 @@ public class ObjWriter {
             writer.write(String.format("v %f %f %f\n", vertex[0], vertex[1], vertex[2]));
     }
 
-    private static void writeTextureVertices(List<float[]> textureVertices, BufferedWriter writer) throws IOException {
+    private static void writeTextures(List<float[]> textureVertices, BufferedWriter writer) throws IOException {
         for (float[] vertex : textureVertices)
             writer.write(String.format("vt %f %f\n", vertex[0], vertex[1]));
     }
 
-    private static void writeNormalVertices(List<float[]> normalVertices, BufferedWriter writer) throws IOException {
+    private static void writeNormals(List<float[]> normalVertices, BufferedWriter writer) throws IOException {
         for (float[] vertex : normalVertices)
             writer.write(String.format("vn %f %f %f\n", vertex[0], vertex[1], vertex[2]));
     }
