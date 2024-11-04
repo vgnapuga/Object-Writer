@@ -9,7 +9,9 @@ public class ObjReader {
     private static List<float[]> vertices;
     private static List<float[]> textures;
     private static List<float[]> normals;
-    private static List<int[]> faces;
+    private static List<int[]> faceVertices;
+    private static List<int[]> faceTextures;
+    private static List<int[]> faceNormals;
 
     public static ObjData read(String filePath) throws IOException {
         if (!isObj(filePath) || !isFileExists(filePath))
@@ -18,7 +20,9 @@ public class ObjReader {
         vertices = new ArrayList<>();
         textures = new ArrayList<>();
         normals = new ArrayList<>();
-        faces = new ArrayList<>();
+        faceVertices = new ArrayList<>();
+        faceTextures = new ArrayList<>();
+        faceNormals = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -30,7 +34,8 @@ public class ObjReader {
             }
         }
 
-        ObjData object = new ObjData(vertices, textures, normals, faces);
+        ObjData object = new ObjData(vertices, textures, normals,
+                faceVertices, faceTextures, faceNormals);
 
         return object;
     }
@@ -94,23 +99,28 @@ public class ObjReader {
         }
     }
 
+
     private static void readFaces(String line) throws IOException {
         if (line.startsWith("f ")) {
             String[] parts = line.split("\\s+");
             if (parts.length >= 4) {
-                int[] result = new int[parts.length - 1];
+                int[] vertexIndices = new int[parts.length - 1];
+                int[] textureIndices = new int[parts.length - 1];
+                int[] normalIndices = new int[parts.length - 1];
+
                 for (int i = 1; i < parts.length; i++) {
                     String[] indices = parts[i].split("/");
-                    result[i - 1] = Integer.parseInt(indices[0]);
+                    vertexIndices[i - 1] = Integer.parseInt(indices[0]) - 1;
+                    textureIndices[i - 1] = indices.length > 1 && !indices[1].isEmpty() ? Integer.parseInt(indices[1]) - 1 : -1;
+                    normalIndices[i - 1] = indices.length > 2 && !indices[2].isEmpty() ? Integer.parseInt(indices[2]) - 1 : -1;
                 }
 
-
-                faces.add(result);
+                faceVertices.add(vertexIndices);
+                faceTextures.add(textureIndices);
+                faceNormals.add(normalIndices);
             } else {
                 throw new NumberFormatException();
             }
-        } else {
-            return;
         }
     }
 

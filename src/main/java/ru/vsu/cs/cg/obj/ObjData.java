@@ -8,21 +8,28 @@ public class ObjData {
     private List<float[]> vertices;
     private List<float[]> textures;
     private List<float[]> normals;
-    private List<int[]> faces;
+    private List<int[]> faceVertices;
+    private List<int[]> faceTextures;
+    private List<int[]> faceNormals;
 
     public ObjData() {
         vertices = new ArrayList<>();
         textures = new ArrayList<>();
         normals = new ArrayList<>();
-        faces = new ArrayList<>();
+        faceVertices = new ArrayList<>();
+        faceTextures = new ArrayList<>();
+        faceNormals = new ArrayList<>();
     }
 
     public ObjData(List<float[]> vertices, List<float[]> textures,
-                   List<float[]> normals, List<int[]> faces) {
+                   List<float[]> normals, List<int[]> faceVertices,
+                   List<int[]> faceTextures, List<int[]> faceNormals) {
         this.vertices = vertices;
         this.textures = textures;
         this.normals = normals;
-        this.faces = faces;
+        this.faceVertices = faceVertices;
+        this.faceTextures = faceTextures;
+        this.faceNormals = faceNormals;
     }
 
     public void setVertices(List<float[]> vertices) {
@@ -46,10 +53,33 @@ public class ObjData {
         return this.normals;
     }
 
-    public void setFaces(List<int[]> faces) {
-        this.faces = faces;
+    public void setFaceVertices(List<int[]> faceVertices) {
+        this.faceVertices = faceVertices;
     }
-    public List<int[]> getFaces() {
-        return this.faces;
+    public List<int[]> getFaceVertices() {
+        return this.faceVertices;
     }
+
+    public void setFaceTextures(List<int[]> faceTextures) {
+        this.faceTextures = faceTextures;
+    }
+    public List<int[]> getFaceTextures() {
+        return this.faceTextures;
+    }
+
+    public void setFaceNormals(List<int[]> faceNormals) {
+        this.faceNormals = faceNormals;
+    }
+    public List<int[]> getFaceNormals() {
+        return this.faceNormals;
+    }
+
+    public boolean hasTextures() {
+        return this.textures.size() > 0;
+    }
+
+    public boolean hasNormals() {
+        return this.normals.size() > 0;
+    }
+
 }
