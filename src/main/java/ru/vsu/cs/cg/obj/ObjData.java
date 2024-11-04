@@ -1,14 +1,14 @@
-package ru.vsu.cs.cg;
+package ru.vsu.cs.cg.obj;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ObjData {
 
-    public List<float[]> vertices;
-    public List<float[]> textures;
-    public List<float[]> normals;
-    public List<int[]> faces;
+    private List<float[]> vertices;
+    private List<float[]> textures;
+    private List<float[]> normals;
+    private List<int[]> faces;
 
     public ObjData() {
         vertices = new ArrayList<>();

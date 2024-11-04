@@ -1,4 +1,4 @@
-package ru.vsu.cs.cg.objectWriter;
+package ru.vsu.cs.cg.obj;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,30 +7,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.vsu.cs.cg.ObjData;
-
 public class ObjWriter {
 
     public static void write(String filePath, ObjData object) throws IOException {
         String newFilePath = checkAndCreateFile(filePath);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(newFilePath))) {
-            writeVertices(object.vertices, writer);
-            if (object.textures != null)
-                writeTextures(object.textures, writer);
-            if (object.normals != null)
-                writeNormals(object.normals, writer);
-            writeFaces(object.faces, writer);
+            writeVertices(object.getVertices(), writer);
+            if (object.getTextures() != null)
+                writeTextures(object.getTextures(), writer);
+            if (object.getNormals() != null)
+                writeNormals(object.getNormals(), writer);
+            writeFaces(object.getFaces(), writer);
         }
     }
 
     private static String checkAndCreateFile(String filePath) throws IOException {
-        String newFilePath = filePath;
+        if (!isObj(filePath))
+            filePath += ".obj";
 
-        if (!isObj(filePath)) {}
-            newFilePath += ".obj";
-
-        File file = new File(newFilePath);
+        File file = new File(filePath);
         if (file.exists()) {
             file.delete();
             file.createNewFile();
@@ -38,7 +34,7 @@ public class ObjWriter {
             file.createNewFile();
         }
 
-        return newFilePath;
+        return filePath;
     }
 
     private static boolean isObj(String filePath) {
