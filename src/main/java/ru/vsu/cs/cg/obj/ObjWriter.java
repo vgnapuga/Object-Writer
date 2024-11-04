@@ -73,11 +73,11 @@ public class ObjWriter {
                 int textureIndex = textureIndices[j] + 1;
                 int normalIndex = normalIndices[j] + 1;
 
-                if (textureIndex > 0 && textureIndex > 0)
+                if (textureIndex > 0 && normalIndex > 0)
                     writer.write(String.format(" %d/%d/%d", vertexIndex, textureIndex, normalIndex));
-                else if (normalIndex <= 0)
+                else if (textureIndex > 0)
                     writer.write(String.format(" %d/%d", vertexIndex, textureIndex));
-                else if (textureIndex <= 0)
+                else if (normalIndex > 0)
                     writer.write(String.format(" %d//%d", vertexIndex, normalIndex));
                 else
                     writer.write(String.format(" %d", vertexIndex));
