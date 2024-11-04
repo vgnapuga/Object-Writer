@@ -13,7 +13,7 @@ public class ObjReader {
     private static List<int[]> faceTextures;
     private static List<int[]> faceNormals;
 
-    public static ObjData read(String filePath) throws IOException {
+    public static ObjData readFromFile(String filePath) throws IOException {
         if (!isObj(filePath) || !isFileExists(filePath))
             throw new FileNotFoundException(filePath);
 

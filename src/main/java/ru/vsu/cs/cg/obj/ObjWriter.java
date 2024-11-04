@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ObjWriter {
 
-    public static void write(String filePath, ObjData object) throws IOException {
+    public static void writeToFile(String filePath, ObjData object) throws IOException {
         String newFilePath = checkAndCreateFile(filePath);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(newFilePath))) {
@@ -73,16 +73,14 @@ public class ObjWriter {
                 int textureIndex = textureIndices[j] + 1;
                 int normalIndex = normalIndices[j] + 1;
 
-                if (object.hasTextures() && object.hasNormals()
-                        && textureIndex != 0 && textureIndex != 0) {
+                if (textureIndex > 0 && textureIndex > 0)
                     writer.write(String.format(" %d/%d/%d", vertexIndex, textureIndex, normalIndex));
-                } else if (object.hasTextures() && normalIndex == 0) {
+                else if (normalIndex <= 0)
                     writer.write(String.format(" %d/%d", vertexIndex, textureIndex));
-                } else if (object.hasNormals() && textureIndex == 0) {
+                else if (textureIndex <= 0)
                     writer.write(String.format(" %d//%d", vertexIndex, normalIndex));
-                } else {
+                else
                     writer.write(String.format(" %d", vertexIndex));
-                }
             }
             writer.newLine();
         }
