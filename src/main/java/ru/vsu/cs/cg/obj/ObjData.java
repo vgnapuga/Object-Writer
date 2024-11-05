@@ -5,6 +5,8 @@ import java.util.List;
 
 public class ObjData {
 
+    private String filePath;
+
     private List<float[]> vertices;
     private List<float[]> textures;
     private List<float[]> normals;
@@ -72,6 +74,13 @@ public class ObjData {
     }
     public final List<int[]> getFaceNormals() {
         return this.faceNormals;
+    }
+
+    public final void setPath(String filePath) {
+        this.filePath = filePath;
+    }
+    public final String getPath() {
+        return filePath;
     }
 
 }
