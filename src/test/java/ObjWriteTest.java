@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ObjWriteTest {
 
-    private static final String filePath = "src/test/resources/cube.obj";
+    private static final String filePath = "src/test/resources/testObjWrite.obj";
 
     private List<float[]> vertices;
     private List<float[]> textures;
