@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ObjWriteTest {
 
-    private static final String filePath = "/home/onenull/.local/projects/IDEAProjects/CG/CG-task03/test.obj";
+    private static final String filePath = "src/test/resources/cube.obj";
 
     private List<float[]> vertices;
     private List<float[]> textures;
@@ -21,7 +21,7 @@ public class ObjWriteTest {
     private List<int[]> faceNormals;
 
     @BeforeEach
-    public void setUp() throws IOException {
+    public void setUp() {
         vertices = new ArrayList<>();
         textures = new ArrayList<>();
         normals = new ArrayList<>();

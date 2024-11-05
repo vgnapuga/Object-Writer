@@ -32,54 +32,46 @@ public class ObjData {
         this.faceNormals = faceNormals;
     }
 
-    public void setVertices(List<float[]> vertices) {
+    public final void setVertices(List<float[]> vertices) {
         this.vertices = vertices;
     }
-    public List<float[]> getVertices() {
+    public final List<float[]> getVertices() {
         return this.vertices;
     }
 
-    public void setTextures(List<float[]> textures) {
+    public final void setTextures(List<float[]> textures) {
         this.textures = textures;
     }
-    public List<float[]> getTextures() {
+    public final List<float[]> getTextures() {
         return this.textures;
     }
 
-    public void setNormals(List<float[]> normals) {
+    public final void setNormals(List<float[]> normals) {
         this.normals = normals;
     }
-    public List<float[]> getNormals() {
+    public final List<float[]> getNormals() {
         return this.normals;
     }
 
-    public void setFaceVertices(List<int[]> faceVertices) {
+    public final void setFaceVertices(List<int[]> faceVertices) {
         this.faceVertices = faceVertices;
     }
-    public List<int[]> getFaceVertices() {
+    public final List<int[]> getFaceVertices() {
         return this.faceVertices;
     }
 
-    public void setFaceTextures(List<int[]> faceTextures) {
+    public final void setFaceTextures(List<int[]> faceTextures) {
         this.faceTextures = faceTextures;
     }
-    public List<int[]> getFaceTextures() {
+    public final List<int[]> getFaceTextures() {
         return this.faceTextures;
     }
 
-    public void setFaceNormals(List<int[]> faceNormals) {
+    public final void setFaceNormals(List<int[]> faceNormals) {
         this.faceNormals = faceNormals;
     }
-    public List<int[]> getFaceNormals() {
+    public final List<int[]> getFaceNormals() {
         return this.faceNormals;
-    }
-
-    public boolean hasTextures() {
-        return this.textures.size() > 0;
-    }
-
-    public boolean hasNormals() {
-        return this.normals.size() > 0;
     }
 
 }

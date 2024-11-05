@@ -34,22 +34,20 @@ public class ObjReader {
             }
         }
 
-        ObjData object = new ObjData(vertices, textures, normals,
+        return new ObjData(vertices, textures, normals,
                 faceVertices, faceTextures, faceNormals);
-
-        return object;
     }
 
-    private static final boolean isObj(String filePath) {
+    private static boolean isObj(String filePath) {
         return filePath.endsWith(".obj");
     }
 
-    private static final boolean isFileExists(String filePath) {
+    private static boolean isFileExists(String filePath) {
         File file = new File(filePath);
         return file.exists();
     }
 
-    private static void readVertices(String line) throws IOException {
+    private static void readVertices(String line) {
         if (line.startsWith("v ")) {
             String[] parts = line.split("\\s+");
             if (parts.length == 4) {
@@ -61,12 +59,10 @@ public class ObjReader {
             } else {
                 throw new NumberFormatException();
             }
-        } else {
-            return;
         }
     }
 
-    private static void readTextures(String line) throws IOException {
+    private static void readTextures(String line) {
         if (line.startsWith("vt ")) {
             String[] parts = line.split("\\s+");
             if (parts.length == 3) {
@@ -77,12 +73,10 @@ public class ObjReader {
             } else {
                 throw new NumberFormatException();
             }
-        } else {
-            return;
         }
     }
 
-    private static void readNormals(String line) throws IOException {
+    private static void readNormals(String line) {
         if (line.startsWith("vn ")) {
             String[] parts = line.split("\\s+");
             if (parts.length == 4) {
@@ -94,13 +88,11 @@ public class ObjReader {
             } else {
                 throw new NumberFormatException();
             }
-        } else {
-            return;
         }
     }
 
 
-    private static void readFaces(String line) throws IOException {
+    private static void readFaces(String line) {
         if (line.startsWith("f ")) {
             String[] parts = line.split("\\s+");
             if (parts.length >= 4) {
@@ -111,8 +103,10 @@ public class ObjReader {
                 for (int i = 1; i < parts.length; i++) {
                     String[] indices = parts[i].split("/");
                     vertexIndices[i - 1] = Integer.parseInt(indices[0]) - 1;
-                    textureIndices[i - 1] = indices.length > 1 && !indices[1].isEmpty() ? Integer.parseInt(indices[1]) - 1 : -1;
-                    normalIndices[i - 1] = indices.length > 2 && !indices[2].isEmpty() ? Integer.parseInt(indices[2]) - 1 : -1;
+                    textureIndices[i - 1] = indices.length > 1 && !indices[1].isEmpty() ?
+                            Integer.parseInt(indices[1]) - 1 : -1;
+                    normalIndices[i - 1] = indices.length > 2 && !indices[2].isEmpty() ?
+                            Integer.parseInt(indices[2]) - 1 : -1;
                 }
 
                 faceVertices.add(vertexIndices);
