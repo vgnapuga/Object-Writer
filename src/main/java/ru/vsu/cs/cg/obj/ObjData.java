@@ -83,4 +83,12 @@ public class ObjData {
         return filePath;
     }
 
+    public final boolean isHasTextures() {
+        return textures.size() > 0;
+    }
+
+    public final boolean isHasNormals() {
+        return normals.size() > 0;
+    }
+
 }

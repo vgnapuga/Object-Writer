@@ -13,8 +13,12 @@ public class ObjWriter {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(newFilePath))) {
             writeVertices(object.getVertices(), writer);
-            writeTextures(object.getTextures(), writer);
-            writeNormals(object.getNormals(), writer);
+
+            if (object.isHasTextures())
+                writeTextures(object.getTextures(), writer);
+            if (object.isHasNormals())
+                writeNormals(object.getNormals(), writer);
+
             writeFaces(object, writer);
         }
     }
